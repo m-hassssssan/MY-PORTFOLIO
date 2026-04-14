@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* Page 5: Grid Gallery */
+    .gallery-hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .gallery-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .gallery-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .gallery-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #00D4FF 50%, #9D00FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gallery-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+    }
+
+    /* Filter tabs */
+    .filter-section {
+      padding: 2rem 4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      color: var(--void-black);
+    }
+
+    /* Masonry Grid */
+    .gallery-grid {
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 300px;
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item:nth-child(1) {
+      grid-row: span 2;
+    }
+
+    .gallery-item:nth-child(4) {
+      grid-column: span 2;
+    }
+
+    .gallery-item:nth-child(6) {
+      grid-row: span 2;
+    }
+
+    .gallery-item:nth-child(9) {
+      grid-column: span 2;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      z-index: 10;
+    }
+
+    .gallery-item-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover .gallery-item-bg {
+      transform: scale(1.1);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5, 5, 8, 0.9) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-item-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neon-cyan);
+      margin-bottom: 0.5rem;
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item-category {
+      transform: translateY(0);
+    }
+
+    .gallery-item-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      transform: translateY(20px);
+      transition: transform 0.4s ease 0.1s;
+    }
+
+    .gallery-item:hover .gallery-item-title {
+      transform: translateY(0);
+    }
+
+    .gallery-item-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Different gradient backgrounds for items */
+    .gallery-item:nth-child(1) .gallery-item-bg { background: linear-gradient(135deg, #00D4FF, #4D9FFF); }
+    .gallery-item:nth-child(2) .gallery-item-bg { background: linear-gradient(135deg, #FF00A0, #FF6B00); }
+    .gallery-item:nth-child(3) .gallery-item-bg { background: linear-gradient(135deg, #9D00FF, #00D4FF); }
+    .gallery-item:nth-child(4) .gallery-item-bg { background: linear-gradient(135deg, #00FF88, #00D4FF); }
+    .gallery-item:nth-child(5) .gallery-item-bg { background: linear-gradient(135deg, #FF6B00, #FF00A0); }
+    .gallery-item:nth-child(6) .gallery-item-bg { background: linear-gradient(135deg, #4D9FFF, #9D00FF); }
+    .gallery-item:nth-child(7) .gallery-item-bg { background: linear-gradient(135deg, #9D00FF, #FF00A0); }
+    .gallery-item:nth-child(8) .gallery-item-bg { background: linear-gradient(135deg, #00D4FF, #00FF88); }
+    .gallery-item:nth-child(9) .gallery-item-bg { background: linear-gradient(135deg, #FF00A0, #4D9FFF); }
+
+    /* Load more */
+    .load-more {
+      padding: 4rem;
+      text-align: center;
+    }
+
+    .load-more-btn {
+      padding: 1rem 3rem;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .load-more-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      transform: translateY(-3px);
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(0, 212, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial-quote {
+      font-size: 3rem;
+      color: var(--neon-cyan);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gradient-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .testimonial-info h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-info p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 8rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 2rem;
+      }
+
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(6) {
+        grid-row: span 1;
+      }
+
+      .gallery-item:nth-child(4),
+      .gallery-item:nth-child(9) {
+        grid-column: span 1;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-hero {
+        padding: 6rem 2rem 3rem;
+      }
+
+      .filter-section {
+        padding: 1.5rem 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-section,
+      .cta-section {
+        padding: 4rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">PORTFOLIO</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="split-screen.html">Split</a>
+      <a href="fullscreen-bg.html">Cinematic</a>
+      <a href="minimalist.html">Minimal</a>
+      <a href="grid-gallery.html" class="active">Gallery</a>
+      <a href="horizontal-scroll.html">Horizontal</a>
+      <a href="dark-cinematic.html">Dark</a>
+      <a href="particles.html">Particles</a>
+      <a href="cards.html">Cards</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Page Indicator -->
+  <div class="page-indicator">
+    <a href="index.html" data-page="3D Hero"></a>
+    <a href="split-screen.html" data-page="Split"></a>
+    <a href="fullscreen-bg.html" data-page="Cinematic"></a>
+    <a href="minimalist.html" data-page="Minimal"></a>
+    <a href="grid-gallery.html" class="active" data-page="Gallery"></a>
+    <a href="horizontal-scroll.html" data-page="Horizontal"></a>
+    <a href="dark-cinematic.html" data-page="Dark"></a>
+    <a href="particles.html" data-page="Particles"></a>
+    <a href="cards.html" data-page="Cards"></a>
+    <a href="contact.html" data-page="Contact"></a>
+  </div>
+
+  <!-- Hero -->
+  <section class="gallery-hero">
+    <div class="gallery-hero-bg"></div>
+    <div class="gallery-hero-content">
+      <div class="gallery-label">Portfolio</div>
+      <h1 class="gallery-title">My Work</h1>
+      <p class="gallery-subtitle">A curated collection of projects spanning web development, design, and 3D experiences.</p>
+    </div>
+  </section>
+
+  <!-- Filter -->
+  <section class="filter-section">
+    <div class="filter-tabs">
+      <button class="filter-tab active">All</button>
+      <button class="filter-tab">Web Dev</button>
+      <button class="filter-tab">UI/UX</button>
+      <button class="filter-tab">3D</button>
+      <button class="filter-tab">Mobile</button>
+      <button class="filter-tab">Branding</button>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
+  <section class="gallery-grid">
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">Web Development</div>
+        <h3 class="gallery-item-title">Nexus Platform</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">UI/UX Design</div>
+        <h3 class="gallery-item-title">Aura Dashboard</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">3D Experience</div>
+        <h3 class="gallery-item-title">Vertex World</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">Mobile App</div>
+        <h3 class="gallery-item-title">Pulse Fitness</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">Branding</div>
+        <h3 class="gallery-item-title">Zenith Identity</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">Web Development</div>
+        <h3 class="gallery-item-title">Echo Commerce</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">UI/UX Design</div>
+        <h3 class="gallery-item-title">Flux Banking</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">3D Experience</div>
+        <h3 class="gallery-item-title">Prism Gallery</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+    
+    <div class="gallery-item reveal">
+      <div class="gallery-item-bg"></div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-category">Full Stack</div>
+        <h3 class="gallery-item-title">Nova Social</h3>
+      </div>
+      <div class="gallery-item-icon">→</div>
+    </div>
+  </section>
+
+  <!-- Load More -->
+  <div class="load-more">
+    <button class="load-more-btn">Load More Projects</button>
+  </div>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="testimonials-header reveal">
+      <h2 class="section-title">Client Testimonials</h2>
+      <p class="section-subtitle">What people say about working with me</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Hassan delivered beyond our expectations. The attention to detail and creative solutions transformed our digital presence completely.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SK</div>
+          <div class="testimonial-info">
+            <h4>Sarah Kim</h4>
+            <p>CEO, TechStart</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Working with Hassan was a game-changer. The website they built increased our conversions by 150% in just three months.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MR</div>
+          <div class="testimonial-info">
+            <h4>Michael Ross</h4>
+            <p>Founder, GrowthLab</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Exceptional talent and professionalism. Hassan understood our vision and brought it to life with stunning precision.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">EJ</div>
+          <div class="testimonial-info">
+            <h4>Emily Johnson</h4>
+            <p>Creative Director, Artify</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <h2 class="cta-title reveal">Ready to Start Your Project?</h2>
+    <p class="cta-subtitle reveal">Let's create something amazing together</p>
+    <div class="cta-buttons reveal">
+      <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+      <a href="split-screen.html" class="btn btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Navbar scroll effect
+    const nav = document.querySelector('.main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Filter tabs
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Load more button
+    document.querySelector('.load-more-btn').addEventListener('click', function() {
+      this.textContent = 'Coming Soon!';
+      setTimeout(() => {
+        this.textContent = 'Load More Projects';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
