@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* Page 10: Contact */
+    .contact-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 30% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, rgba(255, 0, 160, 0.1) 0%, transparent 50%);
+    }
+
+    .contact-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-title {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .contact-info {
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      height: fit-content;
+    }
+
+    .contact-info-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-detail-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 212, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-detail:hover .contact-detail-icon {
+      background: var(--neon-cyan);
+      transform: scale(1.1);
+    }
+
+    .contact-detail-content h4 {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-detail-content p {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .contact-social {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-social-title {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .contact-social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .contact-social-link {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-social-link:hover {
+      background: var(--neon-cyan);
+      transform: translateY(-5px);
+    }
+
+    /* Contact Form */
+    .contact-form-wrapper {
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    textarea.form-input {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group:focus-within .form-label {
+      color: var(--neon-cyan);
+    }
+
+    .form-submit {
+      padding: 1rem 2rem;
+      background: var(--gradient-1);
+      border: none;
+      border-radius: 12px;
+      color: var(--void-black);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .form-submit.sending {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .form-submit.success {
+      background: var(--neon-green);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--neon-cyan);
+    }
+
+    .faq-icon {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      background: var(--neon-cyan);
+      color: var(--void-black);
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-answer p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 8rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-hero,
+      .contact-section {
+        padding: 6rem 2rem 3rem;
+      }
+
+      .contact-info,
+      .contact-form-wrapper {
+        padding: 2rem;
+      }
+
+      .faq-section,
+      .cta-section {
+        padding: 4rem 2rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">PORTFOLIO</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="split-screen.html">Split</a>
+      <a href="fullscreen-bg.html">Cinematic</a>
+      <a href="minimalist.html">Minimal</a>
+      <a href="grid-gallery.html">Gallery</a>
+      <a href="horizontal-scroll.html">Horizontal</a>
+      <a href="dark-cinematic.html">Dark</a>
+      <a href="particles.html">Particles</a>
+      <a href="cards.html">Cards</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Page Indicator -->
+  <div class="page-indicator">
+    <a href="index.html" data-page="3D Hero"></a>
+    <a href="split-screen.html" data-page="Split"></a>
+    <a href="fullscreen-bg.html" data-page="Cinematic"></a>
+    <a href="minimalist.html" data-page="Minimal"></a>
+    <a href="grid-gallery.html" data-page="Gallery"></a>
+    <a href="horizontal-scroll.html" data-page="Horizontal"></a>
+    <a href="dark-cinematic.html" data-page="Dark"></a>
+    <a href="particles.html" data-page="Particles"></a>
+    <a href="cards.html" data-page="Cards"></a>
+    <a href="contact.html" class="active" data-page="Contact"></a>
+  </div>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <div class="contact-hero-bg"></div>
+    <div class="contact-hero-content">
+      <div class="contact-label">Get In Touch</div>
+      <h1 class="contact-title">Let's Talk</h1>
+      <p class="contact-subtitle">Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing together.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-info reveal">
+      <h3 class="contact-info-title">Contact Information</h3>
+      <p class="contact-info-text">Feel free to reach out through any of these channels. I'm always excited to discuss new projects and opportunities.</p>
+      
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div class="contact-detail-content">
+            <h4>Email</h4>
+            <p>hello@alexportfolio.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📱</div>
+          <div class="contact-detail-content">
+            <h4>Phone</h4>
+            <p>+1 (555) 123-4567</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-content">
+            <h4>Location</h4>
+            <p>San Francisco, CA</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-content">
+            <h4>Availability</h4>
+            <p>Mon - Fri, 9AM - 6PM PST</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-social">
+        <p class="contact-social-title">Follow Me</p>
+        <div class="contact-social-links">
+          <a href="#" class="contact-social-link" aria-label="GitHub">GH</a>
+          <a href="#" class="contact-social-link" aria-label="LinkedIn">LI</a>
+          <a href="#" class="contact-social-link" aria-label="Twitter">TW</a>
+          <a href="#" class="contact-social-link" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrapper reveal">
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Doe" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="Project Inquiry" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        
+        <button type="submit" class="form-submit">
+          <span>Send Message</span>
+          <span>→</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-header reveal">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Quick answers to common questions</p>
+    </div>
+    
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>What is your typical project timeline?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Project timelines vary based on scope and complexity. A simple website typically takes 2-4 weeks, while larger applications can take 2-3 months. I'll provide a detailed timeline during our initial consultation.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>How do you handle project pricing?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>I offer both fixed-price and hourly rate options depending on the project type. After understanding your requirements, I'll provide a detailed proposal with transparent pricing and no hidden fees.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>Do you work with clients remotely?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely! I work with clients worldwide and have established workflows for remote collaboration. Video calls, shared project boards, and regular updates keep everyone aligned.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>What technologies do you specialize in?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>I specialize in React, TypeScript, Node.js, and modern frontend frameworks. For design, I work with Figma and Adobe Creative Suite. I'm also experienced with Three.js for 3D web experiences.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>Do you provide ongoing support after launch?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes! I offer maintenance packages that include bug fixes, security updates, performance monitoring, and feature enhancements. We can discuss a plan that fits your needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <h2 class="cta-title reveal">Ready to Start?</h2>
+    <p class="cta-subtitle reveal">Let's turn your vision into reality</p>
+    <div class="cta-buttons reveal">
+      <a href="mailto:hello@alexportfolio.com" class="btn btn-primary">Send an Email</a>
+      <a href="grid-gallery.html" class="btn btn-secondary">View My Work</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Navbar scroll effect
+    const nav = document.querySelector('.main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all items
+        faqItems.forEach(i => i.classList.remove('active'));
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('.form-submit');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      submitBtn.classList.add('sending');
+      submitBtn.innerHTML = '<span>Sending...</span>';
+      
+      setTimeout(() => {
+        submitBtn.classList.remove('sending');
+        submitBtn.classList.add('success');
+        submitBtn.innerHTML = '<span>Message Sent!</span> <span>✓</span>';
+        
+        setTimeout(() => {
+          submitBtn.classList.remove('success');
+          submitBtn.innerHTML = '<span>Send Message</span> <span>→</span>';
+          contactForm.reset();
+        }, 3000);
+      }, 2000);
+    });
+
+    // Form input animations
+    const formInputs = document.querySelectorAll('.form-input');
+    
+    formInputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        input.parentElement.classList.add('focused');
+      });
+      
+      input.addEventListener('blur', () => {
+        input.parentElement.classList.remove('focused');
+      });
+    });
+  </script>
+</body>
+</html>

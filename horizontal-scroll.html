@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizontal | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* Page 6: Horizontal Scroll */
+    .horizontal-page {
+      overflow-x: hidden;
+    }
+
+    .horizontal-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem;
+      position: relative;
+    }
+
+    .horizontal-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(255, 0, 160, 0.1) 0%, transparent 50%);
+    }
+
+    .horizontal-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .horizontal-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .horizontal-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .horizontal-title span {
+      display: block;
+    }
+
+    .horizontal-title span:first-child {
+      background: linear-gradient(135deg, #fff 0%, #00D4FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .horizontal-title span:last-child {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .horizontal-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Horizontal scroll section */
+    .horizontal-section {
+      position: relative;
+      height: 400vh;
+    }
+
+    .horizontal-container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .horizontal-track {
+      display: flex;
+      gap: 3rem;
+      padding: 0 4rem;
+      will-change: transform;
+    }
+
+    .horizontal-card {
+      flex-shrink: 0;
+      width: 500px;
+      height: 70vh;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .horizontal-card:hover {
+      transform: scale(1.02);
+      border-color: rgba(0, 212, 255, 0.3);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .horizontal-card-image {
+      height: 60%;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .horizontal-card:nth-child(2) .horizontal-card-image {
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+    }
+
+    .horizontal-card:nth-child(3) .horizontal-card-image {
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+    }
+
+    .horizontal-card:nth-child(4) .horizontal-card-image {
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+    }
+
+    .horizontal-card:nth-child(5) .horizontal-card-image {
+      background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+    }
+
+    .horizontal-card-number {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-size: 6rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.2);
+      line-height: 1;
+    }
+
+    .horizontal-card-icon {
+      position: absolute;
+      bottom: -40px;
+      right: 2rem;
+      width: 80px;
+      height: 80px;
+      background: var(--void-black);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      z-index: 10;
+    }
+
+    .horizontal-card-content {
+      padding: 3rem 2rem 2rem;
+      height: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .horizontal-card-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neon-cyan);
+    }
+
+    .horizontal-card-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .horizontal-card-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Progress bar */
+    .horizontal-progress {
+      position: absolute;
+      bottom: 3rem;
+      left: 4rem;
+      right: 4rem;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1px;
+    }
+
+    .horizontal-progress-bar {
+      height: 100%;
+      background: var(--gradient-1);
+      border-radius: 1px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .horizontal-progress-text {
+      position: absolute;
+      bottom: 1rem;
+      left: 4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Experience section */
+    .experience-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
+    }
+
+    .experience-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .experience-item {
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .experience-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 212, 255, 0.2);
+    }
+
+    .experience-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--neon-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-company {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .experience-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Awards section */
+    .awards-section {
+      padding: 8rem 4rem;
+    }
+
+    .awards-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .awards-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .award-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .award-item:hover {
+      padding-left: 1rem;
+      border-color: rgba(0, 212, 255, 0.3);
+    }
+
+    .award-info h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .award-info p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .award-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--neon-cyan);
+    }
+
+    @media (max-width: 1024px) {
+      .horizontal-card {
+        width: 400px;
+      }
+
+      .experience-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .horizontal-hero {
+        padding: 6rem 2rem;
+      }
+
+      .horizontal-card {
+        width: 320px;
+        height: 60vh;
+      }
+
+      .horizontal-card-number {
+        font-size: 4rem;
+      }
+
+      .experience-section,
+      .awards-section {
+        padding: 4rem 2rem;
+      }
+
+      .award-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="horizontal-page">
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">PORTFOLIO</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="split-screen.html">Split</a>
+      <a href="fullscreen-bg.html">Cinematic</a>
+      <a href="minimalist.html">Minimal</a>
+      <a href="grid-gallery.html">Gallery</a>
+      <a href="horizontal-scroll.html" class="active">Horizontal</a>
+      <a href="dark-cinematic.html">Dark</a>
+      <a href="particles.html">Particles</a>
+      <a href="cards.html">Cards</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Page Indicator -->
+  <div class="page-indicator">
+    <a href="index.html" data-page="3D Hero"></a>
+    <a href="split-screen.html" data-page="Split"></a>
+    <a href="fullscreen-bg.html" data-page="Cinematic"></a>
+    <a href="minimalist.html" data-page="Minimal"></a>
+    <a href="grid-gallery.html" data-page="Gallery"></a>
+    <a href="horizontal-scroll.html" class="active" data-page="Horizontal"></a>
+    <a href="dark-cinematic.html" data-page="Dark"></a>
+    <a href="particles.html" data-page="Particles"></a>
+    <a href="cards.html" data-page="Cards"></a>
+    <a href="contact.html" data-page="Contact"></a>
+  </div>
+
+  <!-- Hero -->
+  <section class="horizontal-hero">
+    <div class="horizontal-hero-bg"></div>
+    <div class="horizontal-hero-content">
+      <div class="horizontal-label">Featured Projects</div>
+      <h1 class="horizontal-title">
+        <span>SCROLL</span>
+        <span>HORIZONTALLY</span>
+      </h1>
+      <p class="horizontal-subtitle">Explore my latest work through an immersive horizontal scrolling experience.</p>
+    </div>
+  </section>
+
+  <!-- Horizontal Scroll Section -->
+  <section class="horizontal-section" id="horizontalSection">
+    <div class="horizontal-container">
+      <div class="horizontal-track" id="horizontalTrack">
+        <div class="horizontal-card">
+          <div class="horizontal-card-image">
+            <div class="horizontal-card-number">01</div>
+          </div>
+          <div class="horizontal-card-icon">🛒</div>
+          <div class="horizontal-card-content">
+            <div>
+              <div class="horizontal-card-category">E-Commerce</div>
+              <h3 class="horizontal-card-title">Nexus Store</h3>
+            </div>
+            <p class="horizontal-card-desc">A modern e-commerce platform with seamless checkout and real-time inventory.</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-card">
+          <div class="horizontal-card-image">
+            <div class="horizontal-card-number">02</div>
+          </div>
+          <div class="horizontal-card-icon">📊</div>
+          <div class="horizontal-card-content">
+            <div>
+              <div class="horizontal-card-category">Dashboard</div>
+              <h3 class="horizontal-card-title">Analytics Pro</h3>
+            </div>
+            <p class="horizontal-card-desc">Data visualization dashboard with interactive charts and real-time metrics.</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-card">
+          <div class="horizontal-card-image">
+            <div class="horizontal-card-number">03</div>
+          </div>
+          <div class="horizontal-card-icon">🎵</div>
+          <div class="horizontal-card-content">
+            <div>
+              <div class="horizontal-card-category">Music</div>
+              <h3 class="horizontal-card-title">SoundWave</h3>
+            </div>
+            <p class="horizontal-card-desc">Music streaming app with personalized playlists and social features.</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-card">
+          <div class="horizontal-card-image">
+            <div class="horizontal-card-number">04</div>
+          </div>
+          <div class="horizontal-card-icon">🏥</div>
+          <div class="horizontal-card-content">
+            <div>
+              <div class="horizontal-card-category">Healthcare</div>
+              <h3 class="horizontal-card-title">MediCare Portal</h3>
+            </div>
+            <p class="horizontal-card-desc">Patient management system with appointment scheduling and records.</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-card">
+          <div class="horizontal-card-image">
+            <div class="horizontal-card-number">05</div>
+          </div>
+          <div class="horizontal-card-icon">🎮</div>
+          <div class="horizontal-card-content">
+            <div>
+              <div class="horizontal-card-category">Gaming</div>
+              <h3 class="horizontal-card-title">GameHub</h3>
+            </div>
+            <p class="horizontal-card-desc">Gaming community platform with tournaments and leaderboards.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="horizontal-progress">
+        <div class="horizontal-progress-bar" id="progressBar"></div>
+      </div>
+      <div class="horizontal-progress-text">Scroll to explore</div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience-section">
+    <div class="experience-header reveal">
+      <h2 class="section-title">Experience</h2>
+      <p class="section-subtitle">My professional journey</p>
+    </div>
+    
+    <div class="experience-grid">
+      <div class="experience-item reveal">
+        <div class="experience-date">2022 - Present</div>
+        <h3 class="experience-title">Senior Frontend Developer</h3>
+        <p class="experience-company">TechCorp Inc.</p>
+        <p class="experience-desc">Leading frontend development for enterprise applications, mentoring junior developers, and implementing modern web technologies.</p>
+      </div>
+      
+      <div class="experience-item reveal">
+        <div class="experience-date">2020 - 2022</div>
+        <h3 class="experience-title">Full Stack Developer</h3>
+        <p class="experience-company">Digital Agency XYZ</p>
+        <p class="experience-desc">Developed full-stack solutions for clients across various industries, from e-commerce to SaaS platforms.</p>
+      </div>
+      
+      <div class="experience-item reveal">
+        <div class="experience-date">2018 - 2020</div>
+        <h3 class="experience-title">UI/UX Designer</h3>
+        <p class="experience-company">Creative Studio</p>
+        <p class="experience-desc">Designed user interfaces and experiences for web and mobile applications, focusing on usability and aesthetics.</p>
+      </div>
+      
+      <div class="experience-item reveal">
+        <div class="experience-date">2016 - 2018</div>
+        <h3 class="experience-title">Junior Developer</h3>
+        <p class="experience-company">StartupHub</p>
+        <p class="experience-desc">Started my career building responsive websites and learning modern development frameworks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards Section -->
+  <section class="awards-section">
+    <div class="awards-header reveal">
+      <h2 class="section-title">Awards & Recognition</h2>
+      <p class="section-subtitle">Honors received throughout my career</p>
+    </div>
+    
+    <div class="awards-list">
+      <div class="award-item reveal">
+        <div class="award-info">
+          <h3>Awwwards Site of the Day</h3>
+          <p>For Nexus Platform design and development</p>
+        </div>
+        <div class="award-year">2024</div>
+      </div>
+      
+      <div class="award-item reveal">
+        <div class="award-info">
+          <h3>CSS Design Awards</h3>
+          <p>Best UI Design - Aura Dashboard</p>
+        </div>
+        <div class="award-year">2023</div>
+      </div>
+      
+      <div class="award-item reveal">
+        <div class="award-info">
+          <h3>Webby Awards Nominee</h3>
+          <p>Best Visual Design - Vertex 3D Experience</p>
+        </div>
+        <div class="award-year">2023</div>
+      </div>
+      
+      <div class="award-item reveal">
+        <div class="award-info">
+          <h3>FWA of the Month</h3>
+          <p>Interactive Web Experience</p>
+        </div>
+        <div class="award-year">2022</div>
+      </div>
+      
+      <div class="award-item reveal">
+        <div class="award-info">
+          <h3>Developer of the Year</h3>
+          <p>Tech Community Awards</p>
+        </div>
+        <div class="award-year">2021</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Navbar scroll effect
+    const nav = document.querySelector('.main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Horizontal scroll
+    const horizontalSection = document.getElementById('horizontalSection');
+    const horizontalTrack = document.getElementById('horizontalTrack');
+    const progressBar = document.getElementById('progressBar');
+
+    window.addEventListener('scroll', () => {
+      const sectionTop = horizontalSection.offsetTop;
+      const sectionHeight = horizontalSection.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      
+      if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight - windowHeight) {
+        const scrollProgress = (scrollY - sectionTop) / (sectionHeight - windowHeight);
+        const trackWidth = horizontalTrack.scrollWidth - window.innerWidth + 200;
+        const translateX = scrollProgress * trackWidth;
+        
+        horizontalTrack.style.transform = `translateX(-${translateX}px)`;
+        progressBar.style.width = `${scrollProgress * 100}%`;
+      }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
+</body>
+</html>

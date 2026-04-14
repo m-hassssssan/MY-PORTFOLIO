@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* Page 9: Cards */
+    .cards-hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cards-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(255, 0, 160, 0.1) 0%, transparent 50%);
+    }
+
+    .cards-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cards-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .cards-title {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cards-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    /* Skills Cards Grid */
+    .skills-cards-section {
+      padding: 4rem;
+      background: var(--void-dark);
+    }
+
+    .skills-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-card-3d {
+      position: relative;
+      height: 400px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .skill-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-card-3d:hover .skill-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .skill-card-front,
+    .skill-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .skill-card-front {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .skill-card-3d:hover .skill-card-front {
+      border-color: rgba(0, 212, 255, 0.3);
+    }
+
+    .skill-card-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--gradient-1);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.4s ease;
+    }
+
+    .skill-card-3d:hover .skill-card-icon {
+      transform: scale(1.1);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+    }
+
+    .skill-card-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card-level {
+      font-size: 0.875rem;
+      color: var(--neon-cyan);
+    }
+
+    .skill-card-back {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 0, 255, 0.1));
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .skill-card-back h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card-back p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .skill-card-tag {
+      padding: 0.25rem 0.75rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      color: var(--neon-cyan);
+    }
+
+    /* Progress bars section */
+    .progress-section {
+      padding: 8rem 4rem;
+    }
+
+    .progress-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .progress-item {
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+    }
+
+    .progress-header-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .progress-title {
+      font-weight: 600;
+    }
+
+    .progress-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--neon-cyan);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-1);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Hexagon grid */
+    .hex-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
+    }
+
+    .hex-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hex-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hex-item {
+      width: 120px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .hex-item:hover {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: rgba(0, 212, 255, 0.3);
+      transform: translateY(-10px);
+    }
+
+    .hex-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hex-name {
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    /* Quote section */
+    .quote-section {
+      padding: 8rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .quote-section::before {
+      content: '"';
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.02);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .quote-text {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-text span {
+      color: var(--neon-cyan);
+      font-weight: 500;
+    }
+
+    .quote-author {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+      .skills-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .progress-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .skills-cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-cards-section,
+      .progress-section,
+      .hex-section,
+      .quote-section {
+        padding: 4rem 2rem;
+      }
+
+      .hex-item {
+        width: 100px;
+        height: 115px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">PORTFOLIO</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="split-screen.html">Split</a>
+      <a href="fullscreen-bg.html">Cinematic</a>
+      <a href="minimalist.html">Minimal</a>
+      <a href="grid-gallery.html">Gallery</a>
+      <a href="horizontal-scroll.html">Horizontal</a>
+      <a href="dark-cinematic.html">Dark</a>
+      <a href="particles.html">Particles</a>
+      <a href="cards.html" class="active">Cards</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Page Indicator -->
+  <div class="page-indicator">
+    <a href="index.html" data-page="3D Hero"></a>
+    <a href="split-screen.html" data-page="Split"></a>
+    <a href="fullscreen-bg.html" data-page="Cinematic"></a>
+    <a href="minimalist.html" data-page="Minimal"></a>
+    <a href="grid-gallery.html" data-page="Gallery"></a>
+    <a href="horizontal-scroll.html" data-page="Horizontal"></a>
+    <a href="dark-cinematic.html" data-page="Dark"></a>
+    <a href="particles.html" data-page="Particles"></a>
+    <a href="cards.html" class="active" data-page="Cards"></a>
+    <a href="contact.html" data-page="Contact"></a>
+  </div>
+
+  <!-- Hero -->
+  <section class="cards-hero">
+    <div class="cards-hero-bg"></div>
+    <div class="cards-hero-content">
+      <div class="cards-label">My Expertise</div>
+      <h1 class="cards-title">Skills & Tools</h1>
+      <p class="cards-subtitle">A comprehensive overview of my technical capabilities and proficiencies</p>
+    </div>
+  </section>
+
+  <!-- Skills Cards -->
+  <section class="skills-cards-section">
+    <div class="skills-cards-grid">
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">⚛️</div>
+            <h3 class="skill-card-name">Frontend</h3>
+            <p class="skill-card-level">95% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>Frontend Development</h3>
+            <p>Building responsive, interactive user interfaces with modern frameworks and libraries.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">React</span>
+              <span class="skill-card-tag">Vue</span>
+              <span class="skill-card-tag">TypeScript</span>
+              <span class="skill-card-tag">Next.js</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">🎨</div>
+            <h3 class="skill-card-name">Design</h3>
+            <p class="skill-card-level">90% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>UI/UX Design</h3>
+            <p>Creating beautiful, user-centered designs that delight and convert.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">Figma</span>
+              <span class="skill-card-tag">Adobe CC</span>
+              <span class="skill-card-tag">Sketch</span>
+              <span class="skill-card-tag">Prototyping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">⚙️</div>
+            <h3 class="skill-card-name">Backend</h3>
+            <p class="skill-card-level">85% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>Backend Development</h3>
+            <p>Building robust APIs and server-side solutions for scalable applications.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">Node.js</span>
+              <span class="skill-card-tag">Python</span>
+              <span class="skill-card-tag">PostgreSQL</span>
+              <span class="skill-card-tag">GraphQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">🎭</div>
+            <h3 class="skill-card-name">Animation</h3>
+            <p class="skill-card-level">92% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>Motion Design</h3>
+            <p>Creating smooth, engaging animations that bring interfaces to life.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">GSAP</span>
+              <span class="skill-card-tag">Framer</span>
+              <span class="skill-card-tag">CSS Animations</span>
+              <span class="skill-card-tag">Lottie</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">🎲</div>
+            <h3 class="skill-card-name">3D & WebGL</h3>
+            <p class="skill-card-level">80% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>3D Development</h3>
+            <p>Building immersive 3D experiences with WebGL and Three.js.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">Three.js</span>
+              <span class="skill-card-tag">React Three Fiber</span>
+              <span class="skill-card-tag">WebGL</span>
+              <span class="skill-card-tag">Shaders</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-3d reveal">
+        <div class="skill-card-inner">
+          <div class="skill-card-front">
+            <div class="skill-card-icon">📱</div>
+            <h3 class="skill-card-name">Mobile</h3>
+            <p class="skill-card-level">88% Proficiency</p>
+          </div>
+          <div class="skill-card-back">
+            <h3>Mobile Development</h3>
+            <p>Creating cross-platform mobile apps with native-like performance.</p>
+            <div class="skill-card-tags">
+              <span class="skill-card-tag">React Native</span>
+              <span class="skill-card-tag">Flutter</span>
+              <span class="skill-card-tag">PWA</span>
+              <span class="skill-card-tag">iOS/Android</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress Section -->
+  <section class="progress-section">
+    <div class="progress-header reveal">
+      <h2 class="section-title">Proficiency Levels</h2>
+      <p class="section-subtitle">Detailed breakdown of my technical expertise</p>
+    </div>
+    
+    <div class="progress-grid">
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">JavaScript / TypeScript</span>
+          <span class="progress-percent">95%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="95"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">React & Ecosystem</span>
+          <span class="progress-percent">93%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="93"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">CSS / Tailwind / SCSS</span>
+          <span class="progress-percent">95%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="95"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">Node.js / Express</span>
+          <span class="progress-percent">87%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="87"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">UI/UX Design</span>
+          <span class="progress-percent">90%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="90"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item reveal">
+        <div class="progress-header-item">
+          <span class="progress-title">Animation & Motion</span>
+          <span class="progress-percent">92%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="92"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hex Section -->
+  <section class="hex-section">
+    <div class="hex-header reveal">
+      <h2 class="section-title">Tools I Use</h2>
+      <p class="section-subtitle">Software and platforms in my daily workflow</p>
+    </div>
+    
+    <div class="hex-grid">
+      <div class="hex-item reveal">
+        <div class="hex-icon">💻</div>
+        <span class="hex-name">VS Code</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">🎨</div>
+        <span class="hex-name">Figma</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">🐙</div>
+        <span class="hex-name">GitHub</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">🐳</div>
+        <span class="hex-name">Docker</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">☁️</div>
+        <span class="hex-name">AWS</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">📦</div>
+        <span class="hex-name">Vercel</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">🎬</div>
+        <span class="hex-name">After Effects</span>
+      </div>
+      <div class="hex-item reveal">
+        <div class="hex-icon">🖼️</div>
+        <span class="hex-name">Photoshop</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="quote-section">
+    <p class="quote-text reveal">
+      "The only way to do great work is to <span>love what you do</span>. 
+      Every line of code, every pixel placed, is a step toward creating something meaningful."
+    </p>
+    <p class="quote-author reveal">— My Philosophy</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Navbar scroll effect
+    const nav = document.querySelector('.main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Progress bars animation
+    const progressFills = document.querySelectorAll('.progress-fill');
+    
+    const animateProgress = () => {
+      progressFills.forEach(fill => {
+        const windowHeight = window.innerHeight;
+        const elementTop = fill.getBoundingClientRect().top;
+        
+        if (elementTop < windowHeight - 100) {
+          const width = fill.getAttribute('data-width');
+          fill.style.width = width + '%';
+        }
+      });
+    };
+
+    window.addEventListener('scroll', animateProgress);
+    animateProgress();
+  </script>
+</body>
+</html>
