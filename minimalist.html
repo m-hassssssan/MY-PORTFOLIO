@@ -3,97 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minimalist | Portfolio</title>
+  <title>About Me | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <style>
-    /* Page 4: Minimalist Typography */
-    :root {
-      --minimal-bg: #FAFAFA;
-      --minimal-text: #111111;
-      --minimal-muted: #666666;
-      --minimal-accent: #FF3366;
-    }
-
-    body.minimal {
-      background: var(--minimal-bg);
-      color: var(--minimal-text);
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .minimal .main-nav {
-      background: rgba(250, 250, 250, 0.9);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .minimal .nav-logo {
-      background: var(--minimal-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .minimal .nav-links a {
-      color: var(--minimal-muted);
-    }
-
-    .minimal .nav-links a:hover {
-      color: var(--minimal-text);
-    }
-
-    .minimal .nav-links a::after {
-      background: var(--minimal-accent);
-    }
-
-    .minimal .nav-menu-btn span {
-      background: var(--minimal-text);
-    }
-
-    .minimal-hero {
-      min-height: 100vh;
+    /* About Me Page - Dark Theme Matching Others */
+    .about-hero {
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 4rem;
+      padding: 8rem 4rem 4rem;
       position: relative;
+      overflow: hidden;
     }
 
-    .minimal-hero::before {
-      content: '';
+    .about-hero-bg {
       position: absolute;
-      top: 50%;
-      left: 4rem;
-      width: 1px;
-      height: 200px;
-      background: linear-gradient(to bottom, transparent, var(--minimal-accent), transparent);
-      transform: translateY(-50%);
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(157, 0, 255, 0.1) 0%, transparent 50%);
+      z-index: 0;
     }
 
-    .minimal-greeting {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--minimal-accent);
-      margin-bottom: 2rem;
-      margin-left: 2rem;
+    .about-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .about-greeting {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
       opacity: 0;
       animation: fadeInUp 0.6s ease 0.3s forwards;
     }
 
-    .minimal-title {
-      font-size: clamp(4rem, 15vw, 12rem);
-      font-weight: 300;
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      margin-bottom: 3rem;
-      margin-left: 2rem;
+    .about-title {
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 800;
+      line-height: 0.95;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
     }
 
-    .minimal-title .char {
+    .about-title .char {
       display: inline-block;
       opacity: 0;
       transform: translateY(100px);
       animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      background: linear-gradient(135deg, #fff 0%, #00D4FF 50%, #9D00FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     @keyframes charReveal {
@@ -103,389 +69,354 @@
       }
     }
 
-    .minimal-subtitle {
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: var(--minimal-muted);
-      max-width: 500px;
-      margin-left: 2rem;
-      line-height: 1.6;
+    .about-intro {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.8;
       opacity: 0;
-      animation: fadeInUp 0.6s ease 1.5s forwards;
+      animation: fadeInUp 0.8s ease 1s forwards;
     }
 
-    .minimal-subtitle strong {
+    .about-intro span {
+      color: var(--neon-cyan);
       font-weight: 500;
-      color: var(--minimal-text);
     }
 
-    .minimal-cta {
-      margin-top: 3rem;
-      margin-left: 2rem;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease 1.7s forwards;
-    }
-
-    .minimal-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 2rem;
-      background: var(--minimal-text);
-      color: var(--minimal-bg);
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      transition: all 0.3s ease;
-    }
-
-    .minimal-btn:hover {
-      background: var(--minimal-accent);
-      transform: translateX(10px);
-    }
-
-    .minimal-btn::after {
-      content: '→';
-      transition: transform 0.3s ease;
-    }
-
-    .minimal-btn:hover::after {
-      transform: translateX(5px);
-    }
-
-    /* Index numbers */
-    .minimal-index {
-      position: absolute;
-      right: 4rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--minimal-muted);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      letter-spacing: 0.2em;
-      opacity: 0;
-      animation: fadeIn 0.6s ease 2s forwards;
-    }
-
-    /* Selected works section */
-    .works-section {
+    /* Story Section */
+    .story-section {
       padding: 8rem 4rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      background: var(--void-dark);
     }
 
-    .works-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 4rem;
-    }
-
-    .works-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--minimal-muted);
-    }
-
-    .works-title {
-      font-size: 3rem;
-      font-weight: 300;
-      margin-top: 0.5rem;
-    }
-
-    .works-count {
-      font-size: 0.875rem;
-      color: var(--minimal-muted);
-    }
-
-    .works-list {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .work-item {
-      display: grid;
-      grid-template-columns: 1fr 2fr 1fr auto;
-      align-items: center;
-      padding: 2rem 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-
-    .work-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: var(--minimal-accent);
-      transition: width 0.4s ease;
-    }
-
-    .work-item:hover::before {
-      width: 100%;
-    }
-
-    .work-item:hover {
-      padding-left: 1rem;
-    }
-
-    .work-item:hover .work-title {
-      color: var(--minimal-accent);
-    }
-
-    .work-num {
-      font-size: 0.875rem;
-      color: var(--minimal-muted);
-    }
-
-    .work-title {
-      font-size: 2rem;
-      font-weight: 400;
-      transition: color 0.3s ease;
-    }
-
-    .work-category {
-      font-size: 0.875rem;
-      color: var(--minimal-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .work-arrow {
-      font-size: 1.5rem;
-      color: var(--minimal-muted);
-      transition: all 0.3s ease;
-    }
-
-    .work-item:hover .work-arrow {
-      color: var(--minimal-accent);
-      transform: translateX(10px);
-    }
-
-    /* About section */
-    .about-section {
-      padding: 8rem 4rem;
-      background: var(--minimal-text);
-      color: var(--minimal-bg);
-    }
-
-    .about-grid {
+    .story-grid {
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
       align-items: start;
     }
 
-    .about-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .about-text {
-      font-size: 2rem;
-      font-weight: 300;
-      line-height: 1.5;
-    }
-
-    .about-text strong {
-      font-weight: 500;
-      color: var(--minimal-accent);
-    }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 4rem;
-      padding-top: 4rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .about-stat {
-      text-align: center;
-    }
-
-    .about-stat-num {
-      font-size: 4rem;
-      font-weight: 200;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .about-stat-label {
+    .story-label {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--neon-cyan);
     }
 
-    /* Clients section */
-    .clients-section {
+    .story-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .story-content p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Interests Section */
+    .interests-section {
       padding: 8rem 4rem;
     }
 
-    .clients-header {
+    .interests-header {
       text-align: center;
       margin-bottom: 4rem;
     }
 
-    .clients-grid {
+    .interests-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .client-item {
-      aspect-ratio: 3/2;
+    .interest-card {
+      padding: 2.5rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .interest-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(0, 212, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+    }
+
+    .interest-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1.5rem;
+      background: var(--gradient-1);
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      font-size: 1.5rem;
+      font-size: 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .interest-card:hover .interest-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .interest-title {
+      font-size: 1.25rem;
       font-weight: 600;
-      color: var(--minimal-muted);
-      transition: all 0.3s ease;
+      margin-bottom: 0.75rem;
     }
 
-    .client-item:nth-child(4n) {
-      border-right: none;
+    .interest-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
-    .client-item:hover {
-      background: var(--minimal-text);
-      color: var(--minimal-bg);
+    /* Hobbies Timeline */
+    .hobbies-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
     }
 
-    /* Footer */
-    .minimal-footer {
-      padding: 4rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    .hobbies-header {
+      text-align: center;
+      margin-bottom: 4rem;
     }
 
-    .minimal-footer-content {
+    .hobbies-timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hobbies-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      transform: translateX(-50%);
+    }
+
+    .hobby-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      margin-bottom: 3rem;
+      position: relative;
     }
 
-    .minimal-footer-brand {
-      font-size: 1.5rem;
+    .hobby-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .hobby-content {
+      flex: 1;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      margin: 0 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .hobby-content:hover {
+      border-color: rgba(0, 212, 255, 0.2);
+      transform: scale(1.02);
+    }
+
+    .hobby-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--neon-cyan);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+      z-index: 1;
+    }
+
+    .hobby-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hobby-title {
+      font-size: 1.25rem;
       font-weight: 600;
+      margin-bottom: 0.5rem;
     }
 
-    .minimal-footer-links {
-      display: flex;
+    .hobby-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Fun Facts */
+    .facts-section {
+      padding: 8rem 4rem;
+    }
+
+    .facts-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .minimal-footer-links a {
-      font-size: 0.875rem;
-      color: var(--minimal-muted);
-      transition: color 0.3s ease;
+    .fact-card {
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .minimal-footer-links a:hover {
-      color: var(--minimal-accent);
+    .fact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
     }
 
-    .minimal-footer-copy {
-      font-size: 0.875rem;
-      color: var(--minimal-muted);
+    .fact-card:hover::before {
+      transform: scaleX(1);
     }
 
-    /* Page indicator minimal */
-    .minimal .page-indicator a {
-      background: rgba(0, 0, 0, 0.1);
+    .fact-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 212, 255, 0.2);
     }
 
-    .minimal .page-indicator a:hover,
-    .minimal .page-indicator a.active {
-      background: var(--minimal-accent);
-      box-shadow: none;
+    .fact-number {
+      font-size: 4rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .fact-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* Quote Section */
+    .quote-section {
+      padding: 8rem 4rem;
+      background: var(--void-dark);
+      text-align: center;
+    }
+
+    .quote-text {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      font-style: italic;
+    }
+
+    .quote-text span {
+      color: var(--neon-cyan);
+      font-weight: 500;
+    }
+
+    .quote-author {
+      font-size: 1rem;
+      color: var(--text-muted);
     }
 
     @media (max-width: 1024px) {
-      .minimal-hero {
-        padding: 6rem 2rem;
-      }
-
-      .minimal-hero::before {
-        display: none;
-      }
-
-      .minimal-greeting,
-      .minimal-title,
-      .minimal-subtitle,
-      .minimal-cta {
-        margin-left: 0;
-      }
-
-      .minimal-index {
-        display: none;
-      }
-
-      .work-item {
-        grid-template-columns: auto 1fr auto;
-        gap: 1rem;
-      }
-
-      .work-category {
-        display: none;
-      }
-
-      .about-grid {
+      .story-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
       }
 
-      .clients-grid {
+      .interests-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .client-item:nth-child(4n) {
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      .facts-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .client-item:nth-child(2n) {
-        border-right: none;
+      .hobbies-timeline::before {
+        left: 20px;
+      }
+
+      .hobby-item,
+      .hobby-item:nth-child(even) {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 50px;
+      }
+
+      .hobby-dot {
+        left: 20px;
+        transform: none;
+      }
+
+      .hobby-content {
+        margin: 0;
+        width: 100%;
       }
     }
 
     @media (max-width: 768px) {
-      .works-section,
-      .about-section,
-      .clients-section {
+      .about-hero,
+      .story-section,
+      .interests-section,
+      .hobbies-section,
+      .facts-section,
+      .quote-section {
         padding: 4rem 2rem;
       }
 
-      .about-text {
-        font-size: 1.5rem;
-      }
-
-      .about-stats {
+      .interests-grid,
+      .facts-grid {
         grid-template-columns: 1fr;
-      }
-
-      .minimal-footer-content {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
       }
     }
   </style>
 </head>
-<body class="minimal">
+<body>
   <!-- Navigation -->
   <nav class="main-nav">
     <a href="index.html" class="nav-logo">PORTFOLIO</a>
@@ -493,7 +424,7 @@
       <a href="index.html">Home</a>
       <a href="split-screen.html">Split</a>
       <a href="fullscreen-bg.html">Cinematic</a>
-      <a href="minimalist.html" class="active">Minimal</a>
+      <a href="minimalist.html" class="active">Minimalist</a>
       <a href="grid-gallery.html">Gallery</a>
       <a href="horizontal-scroll.html">Horizontal</a>
       <a href="dark-cinematic.html">Dark</a>
@@ -513,7 +444,7 @@
     <a href="index.html" data-page="3D Hero"></a>
     <a href="split-screen.html" data-page="Split"></a>
     <a href="fullscreen-bg.html" data-page="Cinematic"></a>
-    <a href="minimalist.html" class="active" data-page="Minimal"></a>
+    <a href="minimalist.html" class="active" data-page="Minimalist"></a>
     <a href="grid-gallery.html" data-page="Gallery"></a>
     <a href="horizontal-scroll.html" data-page="Horizontal"></a>
     <a href="dark-cinematic.html" data-page="Dark"></a>
@@ -523,138 +454,219 @@
   </div>
 
   <!-- Hero -->
-  <section class="minimal-hero">
-    <div class="minimal-greeting">Hello, I'm</div>
-    <h1 class="minimal-title">
-      <span class="char" style="animation-delay: 0.5s">MOH</span><span class="char" style="animation-delay: 0.55s">AM</span><span class="char" style="animation-delay: 0.6s">MA</span><span class="char" style="animation-delay: 0.65s">D</span>
-      <br>
-      <span class="char" style="animation-delay: 0.7s">HA</span><span class="char" style="animation-delay: 0.75s">SS</span><span class="char" style="animation-delay: 0.8s">A</span><span class="char" style="animation-delay: 0.85s">N</span>
-    </h1>
-    <p class="minimal-subtitle">
-      A <strong>creative developer</strong> and <strong>designer</strong> based in PAKISTAN. 
-      I craft digital experiences that blend aesthetics with functionality.
-    </p>
-    <div class="minimal-cta">
-      <a href="grid-gallery.html" class="minimal-btn">View Selected Work</a>
+  <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-content">
+      <div class="about-greeting">Hello, I'm</div>
+      <h1 class="about-title">
+        <span class="char" style="animation-delay: 0.5s">H</span><span class="char" style="animation-delay: 0.55s">A</span><span class="char" style="animation-delay: 0.6s">S</span><span class="char" style="animation-delay: 0.65s">S</span><span class="char" style="animation-delay: 0.7s">A</span><span class="char" style="animation-delay: 0.75s">N</span>
+        <br>
+        <span class="char" style="animation-delay: 0.8s">T</span><span class="char" style="animation-delay: 0.85s">A</span><span class="char" style="animation-delay: 0.9s">R</span><span class="char" style="animation-delay: 0.95s">I</span><span class="char" style="animation-delay: 1s">Q</span>
+      </h1>
+      <p class="about-intro">
+        I'm a <span>passionate developer</span> who believes in the power of code to transform ideas into reality. 
+        When I'm not crafting digital experiences, you'll find me exploring the world, capturing moments, 
+        or diving into a good book.
+      </p>
     </div>
-    <div class="minimal-index">SCROLL TO EXPLORE</div>
   </section>
 
-  <!-- Works Section -->
-  <section class="works-section">
-    <div class="works-header reveal">
-      <div>
-        <div class="works-label">Portfolio</div>
-        <h2 class="works-title">Selected Works</h2>
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="story-grid">
+      <div class="story-label reveal">My Story</div>
+      <div class="story-content">
+        <h2 class="reveal">From Curiosity to Creation</h2>
+        <p class="reveal">
+          My journey into the world of development started with a simple question: "How does this work?" 
+          That curiosity led me down a path of endless learning, from my first "Hello World" to building 
+          complex, interactive web applications.
+        </p>
+        <p class="reveal">
+          Over the years, I've had the privilege of working with amazing teams and clients, each project 
+          teaching me something new. I believe that great design is invisible—it just works, feels natural, 
+          and brings joy to users.
+        </p>
+        <p class="reveal">
+          Beyond the screen, I'm an avid photographer who loves capturing street scenes and landscapes. 
+          I find that creativity flows between code and camera—both require seeing the world differently 
+          and finding beauty in the details.
+        </p>
       </div>
-      <div class="works-count">06 Projects</div>
+    </div>
+  </section>
+
+  <!-- Interests Section -->
+  <section class="interests-section">
+    <div class="interests-header reveal">
+      <h2 class="section-title">What I Love</h2>
+      <p class="section-subtitle">Passions that fuel my creativity</p>
     </div>
     
-    <div class="works-list">
-      <div class="work-item reveal">
-        <div class="work-num">01</div>
-        <div class="work-title">Nexus Platform</div>
-        <div class="work-category">Web Development</div>
-        <div class="work-arrow">→</div>
+    <div class="interests-grid">
+      <div class="interest-card reveal">
+        <div class="interest-icon">📸</div>
+        <h3 class="interest-title">Photography</h3>
+        <p class="interest-desc">Capturing moments and finding beauty in everyday scenes</p>
       </div>
       
-      <div class="work-item reveal">
-        <div class="work-num">02</div>
-        <div class="work-title">Aura Dashboard</div>
-        <div class="work-category">UI/UX Design</div>
-        <div class="work-arrow">→</div>
+      <div class="interest-card reveal">
+        <div class="interest-icon">📚</div>
+        <h3 class="interest-title">Reading</h3>
+        <p class="interest-desc">Sci-fi, philosophy, and everything in between</p>
       </div>
       
-      <div class="work-item reveal">
-        <div class="work-num">03</div>
-        <div class="work-title">Vertex 3D</div>
-        <div class="work-category">3D Experience</div>
-        <div class="work-arrow">→</div>
+      <div class="interest-card reveal">
+        <div class="interest-icon">🎵</div>
+        <h3 class="interest-title">Music</h3>
+        <p class="interest-desc">From lo-fi beats to classical symphonies</p>
       </div>
       
-      <div class="work-item reveal">
-        <div class="work-num">04</div>
-        <div class="work-title">Pulse App</div>
-        <div class="work-category">Mobile Design</div>
-        <div class="work-arrow">→</div>
+      <div class="interest-card reveal">
+        <div class="interest-icon">🎮</div>
+        <h3 class="interest-title">Gaming</h3>
+        <p class="interest-desc">Indie gems and immersive RPGs</p>
       </div>
       
-      <div class="work-item reveal">
-        <div class="work-num">05</div>
-        <div class="work-title">Zenith Brand</div>
-        <div class="work-category">Branding</div>
-        <div class="work-arrow">→</div>
+      <div class="interest-card reveal">
+        <div class="interest-icon">✈️</div>
+        <h3 class="interest-title">Travel</h3>
+        <p class="interest-desc">Exploring new cultures and cuisines</p>
       </div>
       
-      <div class="work-item reveal">
-        <div class="work-num">06</div>
-        <div class="work-title">Echo System</div>
-        <div class="work-category">Full Stack</div>
-        <div class="work-arrow">→</div>
+      <div class="interest-card reveal">
+        <div class="interest-icon">☕</div>
+        <h3 class="interest-title">Coffee</h3>
+        <p class="interest-desc">A perfect brew fuels great ideas</p>
+      </div>
+      
+      <div class="interest-card reveal">
+        <div class="interest-icon">🌱</div>
+        <h3 class="interest-title">Nature</h3>
+        <p class="interest-desc">Hiking trails and peaceful gardens</p>
+      </div>
+      
+      <div class="interest-card reveal">
+        <div class="interest-icon">🎬</div>
+        <h3 class="interest-title">Cinema</h3>
+        <p class="interest-desc">Films that inspire and challenge</p>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-label reveal">About</div>
-        <div>
-          <p class="about-text reveal">
-            With over <strong>8 years of experience</strong> in digital design and development, 
-            I've had the privilege of working with startups, agencies, and Fortune 500 companies. 
-            My approach combines <strong>technical expertise</strong> with <strong>creative vision</strong> 
-            to deliver solutions that not only look beautiful but perform exceptionally.
-          </p>
-          <div class="about-stats">
-            <div class="about-stat reveal">
-              <div class="about-stat-num">1500+</div>
-              <div class="about-stat-label">Projects</div>
-            </div>
-            <div class="about-stat reveal">
-              <div class="about-stat-num">50+</div>
-              <div class="about-stat-label">Clients</div>
-            </div>
-            <div class="about-stat reveal">
-              <div class="about-stat-num">8</div>
-              <div class="about-stat-label">Years</div>
-            </div>
-          </div>
+  <!-- Hobbies Section -->
+  <section class="hobbies-section">
+    <div class="hobbies-header reveal">
+      <h2 class="section-title">Weekend Vibes</h2>
+      <p class="section-subtitle">How I spend my free time</p>
+    </div>
+    
+    <div class="hobbies-timeline">
+      <div class="hobby-item reveal">
+        <div class="hobby-dot"></div>
+        <div class="hobby-content">
+          <div class="hobby-icon">🏃</div>
+          <h3 class="hobby-title">Morning Runs</h3>
+          <p class="hobby-desc">Starting the day with a refreshing run through the park. Nothing beats that runner's high!</p>
+        </div>
+      </div>
+      
+      <div class="hobby-item reveal">
+        <div class="hobby-dot"></div>
+        <div class="hobby-content">
+          <div class="hobby-icon">🍳</div>
+          <h3 class="hobby-title">Cooking Experiments</h3>
+          <p class="hobby-desc">Trying new recipes and pretending I'm on a cooking show. Sometimes it even turns out edible!</p>
+        </div>
+      </div>
+      
+      <div class="hobby-item reveal">
+        <div class="hobby-dot"></div>
+        <div class="hobby-content">
+          <div class="hobby-icon">💻</div>
+          <h3 class="hobby-title">Side Projects</h3>
+          <p class="hobby-desc">Building fun experiments and learning new technologies. Currently exploring AI and WebGL.</p>
+        </div>
+      </div>
+      
+      <div class="hobby-item reveal">
+        <div class="hobby-dot"></div>
+        <div class="hobby-content">
+          <div class="hobby-icon">🎸</div>
+          <h3 class="hobby-title">Learning Guitar</h3>
+          <p class="hobby-desc">Slowly but surely getting better. My neighbors are... patient.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Clients Section -->
-  <section class="clients-section">
-    <div class="clients-header reveal">
-      <div class="works-label">Trusted By</div>
-      <h2 class="works-title">Clients & Partners</h2>
+  <!-- Fun Facts -->
+  <section class="facts-section">
+    <div class="facts-header reveal">
+      <h2 class="section-title">Fun Facts</h2>
+      <p class="section-subtitle">Random things about me</p>
     </div>
     
-    <div class="clients-grid">
-      <div class="client-item reveal">Google</div>
-      <div class="client-item reveal">Meta</div>
-      <div class="client-item reveal">Apple</div>
-      <div class="client-item reveal">Netflix</div>
-      <div class="client-item reveal">Spotify</div>
-      <div class="client-item reveal">Airbnb</div>
-      <div class="client-item reveal">Uber</div>
-      <div class="client-item reveal">Stripe</div>
+    <div class="facts-grid">
+      <div class="fact-card reveal">
+        <div class="interest-icon">☕</div>
+        <p class="fact-label">Coffee consumed daily</p>
+      </div>
+      
+      <div class="fact-card reveal">
+        <div class="interest-icon">🌙</div>
+        <p class="fact-label">Night owl status</p>
+      </div>
+      
+      <div class="fact-card reveal">
+        <div class="interest-icon">🐱</div>
+        <p class="fact-label">Cat parent to Mano & Jerry </p>
+      </div>
+      
+      <div class="fact-card reveal">
+        <div class="interest-icon">🍕</div>
+        <p class="fact-label">Pizza is life</p>
+      </div>
+      
+      <div class="fact-card reveal">
+        <div class="interest-icon">🎧</div>
+        <p class="fact-label">Always wearing headphones</p>
+      </div>
+      
+      <div class="fact-card reveal">
+        <div class="interest-icon">🌧️</div>
+        <p class="fact-label">Rainy days are the best</p>
+      </div>
     </div>
   </section>
 
+  <!-- Quote Section -->
+  <section class="quote-section">
+    <p class="quote-text reveal">
+      "Design is not just what it looks like and feels like. 
+      <span>Design is how it works.</span>"
+    </p>
+    <p class="quote-author reveal">— Steve Jobs</p>
+  </section>
+
   <!-- Footer -->
-  <footer class="minimal-footer">
-    <div class="minimal-footer-content">
-      <div class="minimal-footer-brand">PORTFOLIO</div>
-      <div class="minimal-footer-links">
-        <a href="index.html">Home</a>
-        <a href="grid-gallery.html">Work</a>
-        <a href="contact.html">Contact</a>
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
       </div>
-      <div class="minimal-footer-copy">© 2024 All rights reserved</div>
     </div>
   </footer>
 
@@ -694,6 +706,9 @@
 
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>
