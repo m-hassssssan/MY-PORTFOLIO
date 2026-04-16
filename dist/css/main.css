@@ -798,3 +798,17 @@ img {
   background: rgba(0, 212, 255, 0.3);
   color: var(--text-primary);
 }
+.wave-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;   /* KEY FIX */
+  height: 100%;
+  z-index: 0;
+}
+.wave-section {
+  padding: 8rem 4rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
