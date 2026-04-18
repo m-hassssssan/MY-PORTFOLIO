@@ -214,6 +214,53 @@
       box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
     }
 
+    /* Bulb: light up glow */
+    @keyframes bulbGlow {
+      0%   { filter: drop-shadow(0 0 2px #ffe066) brightness(1); }
+      50%  { filter: drop-shadow(0 0 20px #ffe066) drop-shadow(0 0 40px #ffaa00) brightness(1.8); }
+      100% { filter: drop-shadow(0 0 2px #ffe066) brightness(1); }
+    }
+    .connection-node:nth-child(2):hover .node-circle { animation: none; }
+    .connection-node:nth-child(2):hover .node-circle::before { animation: none; }
+    .connection-node:nth-child(2):hover { cursor: pointer; }
+    .connection-node:nth-child(2):hover .node-circle span,
+    .node-icon-bulb { display: inline-block; }
+    .connection-node:nth-child(2):hover .node-icon { animation: bulbGlow 0.8s ease forwards; }
+
+    /* Pencil: writing wiggle */
+    @keyframes pencilWrite {
+      0%   { transform: rotate(0deg) translateX(0); }
+      20%  { transform: rotate(-15deg) translateX(-3px); }
+      40%  { transform: rotate(5deg) translateX(3px); }
+      60%  { transform: rotate(-10deg) translateX(-2px); }
+      80%  { transform: rotate(3deg) translateX(2px); }
+      100% { transform: rotate(0deg) translateX(0); }
+    }
+    .connection-node:nth-child(3):hover .node-icon { animation: pencilWrite 0.6s ease forwards; }
+
+    /* Gear: spin */
+    @keyframes gearSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .connection-node:nth-child(4):hover .node-icon { animation: gearSpin 0.8s linear forwards; }
+
+    /* Rocket: fly up and return */
+    @keyframes rocketFly {
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+      40%  { transform: translate(10px, -30px) rotate(15deg); opacity: 1; }
+      60%  { transform: translate(15px, -50px) rotate(20deg); opacity: 0; }
+      61%  { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    }
+    .connection-node:nth-child(5):hover .node-icon { animation: rocketFly 0.9s ease forwards; }
+
+    /* Shared: icon spans inside node-circle */
+    .node-circle .node-icon {
+      display: inline-block;
+      font-style: normal;
+    }
+
     .node-title {
       font-size: 1.125rem;
       font-weight: 600;
@@ -433,25 +480,25 @@
       <div class="connection-line"></div>
       
       <div class="connection-node reveal">
-        <div class="node-circle">💡</div>
+        <div class="node-circle"><span class="node-icon">💡</span></div>
         <h3 class="node-title">Ideate</h3>
         <p class="node-desc">Brainstorming creative solutions</p>
       </div>
       
       <div class="connection-node reveal">
-        <div class="node-circle">✏️</div>
+        <div class="node-circle"><span class="node-icon">✏️</span></div>
         <h3 class="node-title">Design</h3>
         <p class="node-desc">Crafting visual experiences</p>
       </div>
       
       <div class="connection-node reveal">
-        <div class="node-circle">⚙️</div>
+        <div class="node-circle"><span class="node-icon">⚙️</span></div>
         <h3 class="node-title">Develop</h3>
         <p class="node-desc">Building with precision</p>
       </div>
       
       <div class="connection-node reveal">
-        <div class="node-circle">🚀</div>
+        <div class="node-circle"><span class="node-icon">🚀</span></div>
         <h3 class="node-title">Deploy</h3>
         <p class="node-desc">Launching to the world</p>
       </div>
