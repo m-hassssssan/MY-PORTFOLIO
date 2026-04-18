@@ -209,12 +209,11 @@
     .hobbies-timeline::before {
       content: '';
       position: absolute;
-      left: 50%;
+      left: 30px;
       top: 0;
       bottom: 0;
       width: 2px;
       background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
-      transform: translateX(-50%);
     }
 
     .hobby-item {
@@ -225,16 +224,16 @@
     }
 
     .hobby-item:nth-child(even) {
-      flex-direction: row-reverse;
+      flex-direction: row;
     }
 
     .hobby-content {
       flex: 1;
-      padding: 2rem;
+      padding: 2rem 2rem 2rem 70px;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 16px;
-      margin: 0 2rem;
+      margin: 0;
       transition: all 0.4s ease;
     }
 
@@ -249,7 +248,7 @@
       background: var(--neon-cyan);
       border-radius: 50%;
       position: absolute;
-      left: 50%;
+      left: 30px;
       transform: translateX(-50%);
       box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
       z-index: 1;
@@ -378,24 +377,24 @@
       }
 
       .hobbies-timeline::before {
-        left: 20px;
+        left: 30px;
       }
 
       .hobby-item,
       .hobby-item:nth-child(even) {
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
-        padding-left: 50px;
       }
 
       .hobby-dot {
-        left: 20px;
-        transform: none;
+        left: 30px;
+        transform: translateX(-50%);
       }
 
       .hobby-content {
         margin: 0;
         width: 100%;
+        padding-left: 70px;
       }
     }
 
