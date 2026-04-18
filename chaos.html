@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controlled Chaos | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .chaos-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chaos-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.16) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(157, 0, 255, 0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 60%, rgba(255, 0, 160, 0.08) 0%, transparent 65%);
+      z-index: 0;
+    }
+
+    .chaos-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 0, 255, 0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 72%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .chaos-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+    }
+
+    .chaos-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--neon-cyan);
+      margin-bottom: 1.25rem;
+    }
+
+    .chaos-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 0.65rem;
+      vertical-align: middle;
+      background: var(--neon-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--neon-cyan);
+    }
+
+    .chaos-title {
+      font-size: clamp(2.75rem, 9vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 1.75rem;
+    }
+
+    .chaos-title .line1 {
+      display: block;
+      background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .chaos-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 50%, var(--neon-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .chaos-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .chaos-scroll-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--neon-cyan);
+      opacity: 0.85;
+      animation: chaosHintPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes chaosHintPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .chaos-experience {
+      position: relative;
+      min-height: 200vh;
+    }
+
+    .chaos-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.06) 0%, transparent 45%),
+        var(--void-black);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .chaos-sticky::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.35), rgba(157, 0, 255, 0.35), transparent);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .chaos-hint-bar {
+      position: absolute;
+      top: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0 1rem;
+      pointer-events: none;
+      opacity: 0.65;
+      transition: opacity 0.35s ease;
+    }
+
+    .chaos-experience[data-progress="1"] .chaos-hint-bar,
+    .chaos-tidy .chaos-hint-bar {
+      opacity: 0;
+    }
+
+    .chaos-letters {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      justify-content: center;
+      gap: 0.45rem 0.55rem;
+      padding: 7.25rem clamp(0.75rem, 3vw, 2rem) 5.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+    }
+
+    .chaos-fall-word {
+      display: inline-block;
+      font-size: clamp(0.78rem, 1.65vw, 1.05rem);
+      font-weight: 600;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.88);
+      will-change: transform;
+      user-select: none;
+      padding: 0.2rem 0.35rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .chaos-fall-word:nth-child(3n) {
+      color: rgba(0, 212, 255, 0.92);
+      border-color: rgba(0, 212, 255, 0.12);
+    }
+
+    .chaos-fall-word:nth-child(3n + 2) {
+      color: rgba(200, 190, 255, 0.9);
+      border-color: rgba(157, 0, 255, 0.12);
+    }
+
+    .chaos-tidy .chaos-fall-word {
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .chaos-tidy .chaos-letters {
+      position: relative;
+      padding-top: 5.5rem;
+      padding-bottom: 2rem;
+      min-height: auto;
+    }
+
+    .chaos-tidy .chaos-sticky {
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+    }
+
+    .chaos-tidy .chaos-experience {
+      min-height: auto;
+    }
+
+    .chaos-quote-section.quote-section {
+      padding: 6rem 4rem 5rem;
+      text-align: center;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .chaos-quote-section.quote-section::before {
+      content: '"';
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(10rem, 28vw, 18rem);
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.03);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .chaos-quote-section .quote-text {
+      font-size: clamp(1.35rem, 3.5vw, 2.1rem);
+      font-weight: 300;
+      line-height: 1.55;
+      max-width: 760px;
+      margin: 0 auto 1.75rem;
+      position: relative;
+      z-index: 1;
+      color: var(--text-secondary);
+    }
+
+    .chaos-quote-section .quote-text span {
+      color: var(--neon-cyan);
+      font-weight: 500;
+    }
+
+    .chaos-quote-section .quote-author {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .chaos-quote-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .chaos-quote-section.quote-section {
+        padding: 4rem 2rem 3.5rem;
+      }
+    }
+
+    body.chaos-reduced .chaos-scroll-hint,
+    body.chaos-reduced .chaos-hint-bar {
+      display: none;
+    }
+
+    body.chaos-reduced .chaos-experience {
+      min-height: auto;
+    }
+
+    body.chaos-reduced .chaos-sticky {
+      position: relative;
+      height: auto;
+      overflow: visible;
+    }
+
+    body.chaos-reduced .chaos-letters {
+      position: relative;
+      padding: 6rem 1rem 2rem;
+    }
+
+    body.chaos-reduced .chaos-fall-word {
+      transform: none !important;
+    }
+
+    body.chaos-reduced .chaos-sub::after {
+      content: ' Reduced motion: words stay still.';
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .sticky-quote {
+      position: absolute;
+      bottom: 10%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 0 2rem;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .sticky-quote p {
+      font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .sticky-quote span {
+      color: var(--neon-cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">PORTFOLIO</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="split-screen.html">Split</a>
+      <a href="fullscreen-bg.html">Cinematic</a>
+      <a href="minimalist.html">Minimalist</a>
+      <a href="grid-gallery.html">Gallery</a>
+      <a href="horizontal-scroll.html">Horizontal</a>
+      <a href="dark-cinematic.html">Dark</a>
+      <a href="particles.html">Particles</a>
+      <a href="cards.html">Cards</a>
+      <a href="chaos.html" class="active">Chaos</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="page-indicator">
+    <a href="index.html" data-page="3D Hero"></a>
+    <a href="split-screen.html" data-page="Split"></a>
+    <a href="fullscreen-bg.html" data-page="Cinematic"></a>
+    <a href="minimalist.html" data-page="Minimalist"></a>
+    <a href="grid-gallery.html" data-page="Gallery"></a>
+    <a href="horizontal-scroll.html" data-page="Horizontal"></a>
+    <a href="dark-cinematic.html" data-page="Dark"></a>
+    <a href="particles.html" data-page="Particles"></a>
+    <a href="cards.html" data-page="Cards"></a>
+    <a href="chaos.html" class="active" data-page="Chaos"></a>
+    <a href="contact.html" data-page="Contact"></a>
+  </div>
+
+  <section class="chaos-hero">
+    <div class="chaos-hero-bg"></div>
+    <div class="chaos-hero-grid"></div>
+    <div class="chaos-hero-inner">
+      <p class="sr-only">Motivating words fall with simulated gravity; scrolling adds small nudges. At the end of the section they align automatically; scroll back up to replay.</p>
+      <p class="chaos-label">Interactive</p>
+      <h1 class="chaos-title">
+        <span class="line1">Fall into the</span>
+        <span class="line2">controlled chaos</span>
+      </h1>
+      <p class="chaos-sub">Gravity pulls the words down on their own. Scrolling only nudges them. Reach the end and they snap neatly into place.</p>
+      <p class="chaos-scroll-hint">SCROLL ↓</p>
+    </div>
+  </section>
+
+  <section class="chaos-experience" id="chaosExperience" data-progress="0">
+    <div class="chaos-sticky" id="chaosSticky">
+      <div class="chaos-hint-bar">Words fall under gravity—scroll up for anti-gravity. End of section: they align.</div>
+      <div class="chaos-letters" id="chaosLetters" aria-hidden="true">
+        <span class="chaos-fall-word" data-chaos-word>creativity</span>
+        <span class="chaos-fall-word" data-chaos-word>possibility</span>
+        <span class="chaos-fall-word" data-chaos-word>courage</span>
+        <span class="chaos-fall-word" data-chaos-word>vision</span>
+        <span class="chaos-fall-word" data-chaos-word>purpose</span>
+        <span class="chaos-fall-word" data-chaos-word>momentum</span>
+        <span class="chaos-fall-word" data-chaos-word>breakthrough</span>
+        <span class="chaos-fall-word" data-chaos-word>imagine</span>
+        <span class="chaos-fall-word" data-chaos-word>believe</span>
+        <span class="chaos-fall-word" data-chaos-word>begin</span>
+        <span class="chaos-fall-word" data-chaos-word>ignite</span>
+        <span class="chaos-fall-word" data-chaos-word>growth</span>
+        <span class="chaos-fall-word" data-chaos-word>shine</span>
+        <span class="chaos-fall-word" data-chaos-word>resilient</span>
+        <span class="chaos-fall-word" data-chaos-word>forward</span>
+        <span class="chaos-fall-word" data-chaos-word>bold</span>
+        <span class="chaos-fall-word" data-chaos-word>focus</span>
+        <span class="chaos-fall-word" data-chaos-word>craft</span>
+        <span class="chaos-fall-word" data-chaos-word>explore</span>
+        <span class="chaos-fall-word" data-chaos-word>depth</span>
+        <span class="chaos-fall-word" data-chaos-word>dream</span>
+        <span class="chaos-fall-word" data-chaos-word>build</span>
+        <span class="chaos-fall-word" data-chaos-word>trust</span>
+        <span class="chaos-fall-word" data-chaos-word>hope</span>
+        <span class="chaos-fall-word" data-chaos-word>elevate</span>
+        <span class="chaos-fall-word" data-chaos-word>unique</span>
+        <span class="chaos-fall-word" data-chaos-word>spark</span>
+        <span class="chaos-fall-word" data-chaos-word>rise</span>
+        <span class="chaos-fall-word" data-chaos-word>overcome</span>
+        <span class="chaos-fall-word" data-chaos-word>wonder</span>
+        <span class="chaos-fall-word" data-chaos-word>connect</span>
+        <span class="chaos-fall-word" data-chaos-word>impact</span>
+        <span class="chaos-fall-word" data-chaos-word>legacy</span>
+        <span class="chaos-fall-word" data-chaos-word>thrive</span>
+        <span class="chaos-fall-word" data-chaos-word>invent</span>
+      </div>
+      <div class="sticky-quote">
+        <p>"In the midst of chaos, there is also opportunity."</p>
+        <span>— Sun Tzu</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="chaos-quote-section quote-section" style="padding-top: 2rem;">
+    <div class="chaos-quote-cta">
+      <a href="index.html" class="btn btn-primary">Back Home</a>
+      <a href="contact.html" class="btn btn-secondary">Contact</a>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">PORTFOLIO</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="grid-gallery.html">Work</a>
+          <a href="cards.html">Skills</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub">GH</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="Dribbble">DR</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const menuBtn = document.getElementById('menuBtn');
+      const navLinks = document.getElementById('navLinks');
+      menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+      const nav = document.querySelector('.main-nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) document.body.classList.add('chaos-reduced');
+
+      const experience = document.getElementById('chaosExperience');
+      const words = () => Array.from(document.querySelectorAll('[data-chaos-word]'));
+      const TIDY_AT = 0.94;
+      const UNTIDY_BELOW = 0.78;
+      const PHYS_START = 0.045;
+      const G = 0.5;
+      const TERMINAL_VY = 20;
+      const SIDE = 110;
+
+      function hash01(i, salt) {
+        const x = Math.sin(i * 12.9898 + salt * 78.233) * 43758.5453;
+        return x - Math.floor(x);
+      }
+
+      let bodies = [];
+
+      function initBodies() {
+        bodies = words().map((_, i) => ({
+          x: (hash01(i, 1) - 0.5) * 10,
+          y: (hash01(i, 8) - 0.5) * 6,
+          vx: (hash01(i, 2) - 0.5) * 1.4,
+          vy: (hash01(i, 3) - 0.5) * 0.35,
+          angle: (hash01(i, 9) - 0.5) * 25,
+          va: (hash01(i, 10) - 0.5) * 4,
+          gScale: 0.82 + hash01(i, 5) * 0.32,
+          wKick: 0.55 + hash01(i, 6) * 0.9
+        }));
+      }
+
+      initBodies();
+
+      let lastScrollY = window.scrollY;
+      let scrollVel = 0;
+
+      function scrollProgress() {
+        const rect = experience.getBoundingClientRect();
+        const total = experience.offsetHeight - window.innerHeight;
+        let p = -rect.top / Math.max(total, 1);
+        return Math.max(0, Math.min(1, p));
+      }
+
+      function applyTransformsFromBodies() {
+        const list = words();
+        for (let i = 0; i < list.length; i++) {
+          const b = bodies[i];
+          if (!b) continue;
+          list[i].style.transition = 'none';
+          list[i].style.transform =
+            'translate3d(' + b.x.toFixed(2) + 'px,' + b.y.toFixed(2) + 'px,0) rotate(' + b.angle.toFixed(2) + 'deg)';
+        }
+      }
+
+      function resetFallState() {
+        experience.classList.remove('chaos-tidy');
+        experience.dataset.progress = '0';
+        lastScrollY = window.scrollY;
+        scrollVel = 0;
+        initBodies();
+        words().forEach((el) => {
+          el.style.transition = '';
+          el.style.transform = '';
+        });
+        applyTransformsFromBodies();
+      }
+
+      function applyAutoTidyReduced() {
+        if (experience.classList.contains('chaos-tidy')) return;
+        experience.classList.add('chaos-tidy');
+        experience.dataset.progress = '1';
+        words().forEach((el) => {
+          el.style.transition = '';
+          el.style.transform = '';
+        });
+      }
+
+      function applyAutoTidyFromPhysics() {
+        if (experience.classList.contains('chaos-tidy')) return;
+        const list = words();
+        list.forEach((el, i) => {
+          const b = bodies[i];
+          el.style.transition = 'none';
+          el.style.transform =
+            'translate3d(' + b.x.toFixed(2) + 'px,' + b.y.toFixed(2) + 'px,0) rotate(' + b.angle.toFixed(2) + 'deg)';
+        });
+        void experience.offsetWidth;
+        experience.classList.add('chaos-tidy');
+        experience.dataset.progress = '1';
+        requestAnimationFrame(() => {
+          list.forEach((el, i) => {
+            el.style.transition =
+              'transform 0.78s cubic-bezier(0.22, 1, 0.36, 1) ' + i * 10 + 'ms';
+            el.style.transform = 'translate3d(0,0,0)';
+          });
+        });
+      }
+
+      function stepPhysics(pRaw) {
+        const vh = window.innerHeight;
+        const floorY = vh * 0.52;
+        const list = words();
+        const nudge = scrollVel * 0.09;
+        const isScrollingUp = scrollVel < -1.5;
+        const activeG = isScrollingUp ? -0.8 : G;
+
+        if (pRaw < PHYS_START) {
+          initBodies();
+          applyTransformsFromBodies();
+          return;
+        }
+
+        for (let i = 0; i < list.length; i++) {
+          const b = bodies[i];
+          b.vy += activeG * b.gScale;
+          
+          if (b.vy > TERMINAL_VY) b.vy = TERMINAL_VY;
+          if (b.vy < -TERMINAL_VY) b.vy = -TERMINAL_VY;
+
+          b.vx *= 0.994;
+          b.va *= 0.96;
+          
+          b.x += b.vx + nudge * b.wKick * 0.12;
+          b.y += b.vy;
+          b.angle += b.va;
+
+          if (b.y > floorY) {
+            b.y = floorY;
+            b.vy *= -0.18;
+            b.va += b.vx * 0.8;
+            if (Math.abs(b.vy) < 0.35) b.vy = 0;
+            b.vx *= 0.86;
+          }
+
+          const ceilY = -vh * 0.1;
+          if (b.y < ceilY) {
+            b.y = ceilY;
+            b.vy *= -0.18;
+            b.va -= b.vx * 0.8;
+            if (Math.abs(b.vy) < 0.35) b.vy = 0;
+            b.vx *= 0.86;
+          }
+
+          if (b.x < -SIDE) {
+            b.x = -SIDE;
+            b.vx *= -0.35;
+            b.va += b.vy * 0.5;
+          } else if (b.x > SIDE) {
+            b.x = SIDE;
+            b.vx *= -0.35;
+            b.va -= b.vy * 0.5;
+          }
+        }
+
+        applyTransformsFromBodies();
+      }
+
+      const quoteRevealEls = document.querySelectorAll('.chaos-quote-section .reveal');
+
+      function revealQuoteIfNeeded() {
+        quoteRevealEls.forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+            el.classList.add('active');
+          }
+        });
+      }
+
+      function onScrollVel() {
+        const y = window.scrollY;
+        const dy = y - lastScrollY;
+        lastScrollY = y;
+        scrollVel += dy * 0.35;
+        if (scrollVel > 42) scrollVel = 42;
+        if (scrollVel < -34) scrollVel = -34;
+
+        if (!reduced && bodies.length) {
+          const imp = dy * 0.028;
+          for (let i = 0; i < bodies.length; i++) {
+            bodies[i].vy += imp * bodies[i].wKick;
+            bodies[i].vx += imp * (hash01(i, 7) - 0.5) * 0.4;
+            bodies[i].va += imp * (hash01(i, 11) - 0.5) * 2.5;
+          }
+        }
+
+      }
+
+      function tick() {
+        const pRaw = scrollProgress();
+
+        if (experience.classList.contains('chaos-tidy')) {
+          if (pRaw < UNTIDY_BELOW) resetFallState();
+          requestAnimationFrame(tick);
+          return;
+        }
+
+        experience.dataset.progress = pRaw >= TIDY_AT ? '1' : '0';
+
+        if (pRaw >= TIDY_AT) {
+          if (reduced) applyAutoTidyReduced();
+          else applyAutoTidyFromPhysics();
+          requestAnimationFrame(tick);
+          return;
+        }
+
+        if (!reduced) {
+          scrollVel *= 0.91;
+          stepPhysics(pRaw);
+        }
+
+        revealQuoteIfNeeded();
+        requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('scroll', onScrollVel, { passive: true });
+      if (!reduced) {
+        window.addEventListener('resize', applyTransformsFromBodies);
+      }
+      if (reduced) {
+        queueMicrotask(() => {
+          if (scrollProgress() >= TIDY_AT) applyAutoTidyReduced();
+        });
+      }
+      requestAnimationFrame(tick);
+      revealQuoteIfNeeded();
+    })();
+  </script>
+</body>
+</html>
