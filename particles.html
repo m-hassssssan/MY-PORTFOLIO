@@ -227,9 +227,15 @@
 
     /* Wave section */
     .wave-section {
+      min-height: 100vh;
       padding: 8rem 4rem;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
+      width: 100%;
     }
 
     .wave-canvas {
@@ -678,17 +684,17 @@
     let time = 0;
 
     function resizeWave() {
-      waveWidth = waveCanvas.width = waveCanvas.offsetWidth;
-      waveHeight = waveCanvas.height = waveCanvas.offsetHeight;
+      waveWidth = waveCanvas.width = window.innerWidth;
+      waveHeight = waveCanvas.height = document.querySelector('.wave-section').offsetHeight;
     }
 
     function drawWave() {
       waveCtx.clearRect(0, 0, waveWidth, waveHeight);
       
       const waves = [
-        { color: 'rgba(0, 212, 255, 0.1)', amplitude: 50, frequency: 0.01, speed: 0.02 },
-        { color: 'rgba(157, 0, 255, 0.1)', amplitude: 40, frequency: 0.015, speed: 0.015 },
-        { color: 'rgba(255, 0, 160, 0.05)', amplitude: 30, frequency: 0.02, speed: 0.01 }
+        { color: 'rgba(0, 212, 255, 0.1)', amplitude: 180, frequency: 0.002, speed: 0.015 },
+        { color: 'rgba(157, 0, 255, 0.1)', amplitude: 150, frequency: 0.003, speed: 0.01 },
+        { color: 'rgba(255, 0, 160, 0.05)', amplitude: 120, frequency: 0.004, speed: 0.008 }
       ];
 
       waves.forEach(wave => {
